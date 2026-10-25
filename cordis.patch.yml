@@ -1,0 +1,4 @@
+# DSH bundle patch: installed profiles merge this layer automatically.
+- insert:
+    - id: dsh-mist-ink-theme
+      name: dsh-mist-ink-theme

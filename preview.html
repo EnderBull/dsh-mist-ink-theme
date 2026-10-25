@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh-CN" data-dsh-mist-ink data-windows-titlebar>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>雾墨 Mist Ink — preview</title>
+<style>
+  /* Stock DSH dark tokens: the "before" baseline. Mist Ink overrides these on
+     body[data-ds-dark-theme] when data-dsh-mist-ink is present. */
+  :root {
+    --dsw-alias-bg-base: #151517;
+    --dsw-alias-bg-layer-1: #232324;
+    --dsw-alias-bg-layer-2: #2c2c2e;
+    --dsw-alias-bg-layer-3: #353638;
+    --dsw-alias-border-l1: rgba(255, 255, 255, 0.06);
+    --dsw-alias-border-l2: rgba(255, 255, 255, 0.12);
+    --dsw-alias-border-l3: rgba(255, 255, 255, 0.16);
+    --dsw-alias-label-primary: #f9fafb;
+    --dsw-alias-label-secondary: #cfd3d6;
+    --dsw-alias-label-tertiary: #adb2b8;
+    --dsw-alias-brand-primary: #f9fafb;
+    --dsw-alias-state-business-primary: #7aaaff;
+    --dsw-specific-sidebar-fill: #1b1b1c;
+    --dsw-specific-bubble: #2c2c2e;
+    --dsw-specific-bubble-highlight: #43454a;
+    --dsw-specific-sidebar-nav-item-active: #43454a;
+    --dsw-alias-markdown-code-block: #1b1b1c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    overflow: hidden;
+    color: var(--dsw-alias-label-primary);
+    background: var(--dsw-alias-bg-base);
+    font: 14px/1.55 "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .pv_frame {
+    display: grid; grid-template-columns: 280px minmax(0, 1fr) 320px;
+    height: 100vh; position: relative; padding-top: 40px;
+  }
+  html[data-windows-titlebar] .pv_frame::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 40px;
+    background: var(--dsw-specific-sidebar-fill);
+    border-bottom: 0.5px solid var(--dsw-alias-border-l1);
+  }
+  .pv_titlebar {
+    position: absolute; top: 0; left: 0; right: 0; height: 40px;
+    display: flex; align-items: center; justify-content: flex-end;
+    gap: 7px; padding: 0 16px; z-index: 2;
+  }
+  .pv_titlebar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); }
+
+  /* Sidebar */
+  .pv_sidebarCol {
+    display: flex; flex-direction: column; gap: 14px;
+    min-width: 0; padding: 16px 12px 12px;
+    background: var(--dsw-specific-sidebar-fill);
+    border-right: 0.5px solid var(--dsw-alias-border-l3);
+  }
+  .pv_brand { display: flex; align-items: center; gap: 10px; padding: 2px 8px 6px; }
+  .pv_logo {
+    width: 22px; height: 22px; border-radius: 7px;
+    background: linear-gradient(145deg, #6f7f95, #3a4250);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.25);
+  }
+  .pv_brandText { font-size: 13px; letter-spacing: 0.14em; color: var(--dsw-alias-label-secondary); }
+  .pv_new {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 10px; border-radius: 10px;
+    color: var(--dsw-alias-label-primary);
+    background: var(--dsw-specific-sidebar-nav-item-active);
+    border: 0.5px solid var(--dsw-alias-border-l2);
+    font-size: 13px;
+  }
+  .pv_newIcon { font-size: 15px; line-height: 1; }
+  .pv_nav { display: grid; gap: 2px; }
+  .pv_navItem {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 10px; border-radius: 8px;
+    color: var(--dsw-alias-label-secondary); font-size: 13px;
+  }
+  .pv_navItem.active { color: var(--dsw-alias-label-primary); background: var(--dsw-specific-sidebar-nav-item-active); }
+  .pv_glyph { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid currentColor; opacity: 0.75; }
+  .pv_sectionLabel {
+    margin: 6px 10px 2px; font-size: 11px; letter-spacing: 0.08em;
+    color: var(--dsw-alias-label-tertiary); text-transform: uppercase;
+  }
+  .pv_sessions { display: grid; gap: 2px; overflow: hidden; }
+  .pv_session { padding: 8px 10px; border-radius: 8px; color: var(--dsw-alias-label-secondary); font-size: 13px; }
+  .pv_session.active { color: var(--dsw-alias-label-primary); background: rgba(255, 255, 255, 0.045); }
+  .pv_sessionMeta { display: block; margin-top: 2px; color: var(--dsw-alias-label-tertiary); font-size: 11px; }
+  .pv_sidebarFoot { margin-top: auto; display: flex; align-items: center; gap: 8px; padding: 8px 10px; color: var(--dsw-alias-label-secondary); font-size: 13px; }
+
+  /* Center */
+  .pv_centerCol { display: flex; flex-direction: column; min-width: 0; background: var(--dsw-alias-bg-base); }
+  .pv_centerHeader {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 54px; padding: 0 24px; border-bottom: 0.5px solid var(--dsw-alias-border-l1);
+    flex: 0 0 auto;
+  }
+  .pv_title { font-size: 13px; color: var(--dsw-alias-label-secondary); }
+  .pv_badge {
+    padding: 3px 9px; border-radius: 999px; font-size: 11px; letter-spacing: 0.04em;
+    color: var(--dsw-alias-state-business-primary);
+    border: 0.5px solid color-mix(in srgb, var(--dsw-alias-state-business-primary) 35%, transparent);
+    background: color-mix(in srgb, var(--dsw-alias-state-business-primary) 10%, transparent);
+  }
+  .pv_transcript { flex: 1 1 auto; overflow: hidden; padding: 26px 40px 12px; }
+  .pv_column { max-width: 760px; margin: 0 auto; display: grid; gap: 22px; }
+  .pv_msgUser { justify-self: end; max-width: 76%; padding: 10px 14px; border-radius: 14px 14px 4px 14px; background: var(--dsw-specific-bubble); color: var(--dsw-alias-label-primary); font-size: 14px; }
+  .pv_msgAssistant { display: grid; gap: 12px; }
+  .pv_msgAssistant h2 { margin: 0; font-size: 16px; line-height: 1.4; font-weight: 560; }
+  .pv_msgAssistant p { margin: 0; color: var(--dsw-alias-label-primary); }
+  .pv_msgAssistant ul { margin: 0; padding-left: 20px; color: var(--dsw-alias-label-secondary); display: grid; gap: 4px; }
+  .pv_msgAssistant li::marker { color: var(--dsw-alias-label-tertiary); }
+  .pv_code {
+    margin: 0; padding: 14px 16px; border-radius: 12px; overflow: hidden;
+    background: var(--dsw-alias-markdown-code-block);
+    border: 0.5px solid var(--dsw-alias-border-l1);
+    color: #c9d3e3; font: 12px/1.65 "Cascadia Code", Consolas, monospace;
+  }
+  .pv_code .k { color: #9ab8e6; }
+  .pv_code .s { color: #a9c8a2; }
+  .pv_code .c { color: var(--dsw-alias-label-tertiary); }
+  .pv_tool {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    border-radius: 10px; background: var(--dsw-alias-bg-layer-1);
+    border: 0.5px solid var(--dsw-alias-border-l1);
+    color: var(--dsw-alias-label-secondary); font-size: 12px;
+  }
+  .pv_dot { width: 7px; height: 7px; border-radius: 50%; background: #7fae87; box-shadow: 0 0 0 3px rgba(127, 174, 135, 0.12); }
+
+  /* Composer */
+  .pv_composerSeat { flex: 0 0 auto; padding: 10px 28px 22px; }
+  .pv_composerCard {
+    max-width: 760px; margin: 0 auto; padding: 14px 16px 12px;
+    border-radius: 18px; min-height: 96px;
+    background: var(--dsw-alias-bg-layer-1);
+    border: 0.5px solid var(--dsw-alias-border-l2);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .pv_composerText { color: var(--dsw-alias-label-tertiary); font-size: 14px; }
+  .pv_composerRow { display: flex; align-items: center; justify-content: space-between; }
+  .pv_chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 999px;
+    border: 0.5px solid var(--dsw-alias-border-l1); color: var(--dsw-alias-label-secondary); font-size: 11px;
+  }
+  .pv_send { width: 30px; height: 30px; border-radius: 9px; background: var(--dsw-alias-brand-primary); display: grid; place-items: center; color: #24242a; font-size: 14px; font-weight: 700; }
+
+  /* Right details */
+  .pv_rightbarCol { padding: 20px 18px; background: var(--dsw-alias-bg-layer-1); border-left: 0.5px solid var(--dsw-alias-border-l2); overflow: hidden; }
+  .pv_detailTitle { margin: 0 0 14px; font-size: 13px; color: var(--dsw-alias-label-primary); }
+  .pv_detailRow { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 0.5px solid var(--dsw-alias-border-l1); font-size: 12px; }
+  .pv_detailRow span:first-child { color: var(--dsw-alias-label-tertiary); }
+  .pv_detailRow span:last-child { color: var(--dsw-alias-label-secondary); }
+  .pv_swatchGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .pv_swatch { height: 54px; border-radius: 9px; border: 0.5px solid var(--dsw-alias-border-l1); display: flex; align-items: flex-end; padding: 7px; font-size: 10px; color: var(--dsw-alias-label-tertiary); }
+  .pv_contrast { margin-top: 16px; padding: 10px 12px; border-radius: 9px; background: var(--dsw-alias-bg-layer-2); font-size: 11px; color: var(--dsw-alias-label-tertiary); line-height: 1.7; }
+  .pv_contrast b { color: var(--dsw-alias-label-secondary); font-weight: 500; }
+
+  /* Settings dialog */
+  .pv_dialog {
+    display: none; position: fixed; top: 84px; right: 64px; width: 620px; max-height: calc(100vh - 160px);
+    flex-direction: column; border-radius: 16px; overflow: hidden;
+    background: var(--dsw-alias-bg-layer-2);
+    border: 0.5px solid var(--dsw-alias-border-l3);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  }
+  body.show-settings .pv_dialog { display: flex; }
+  .pv_dialogHeader { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 0.5px solid var(--dsw-alias-border-l2); }
+  .pv_dialogHeader b { font-size: 14px; font-weight: 560; }
+  .pv_close { color: var(--dsw-alias-label-tertiary); font-size: 16px; }
+  .pv_dialogBody { padding: 4px 20px 18px; overflow: auto; }
+  .pv_groupLabel { margin: 18px 0 2px; font-size: 11px; letter-spacing: 0.08em; color: var(--dsw-alias-label-tertiary); text-transform: uppercase; }
+  .pv_settingRow { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 0; border-bottom: 0.5px solid var(--dsw-alias-border-l2); }
+  .pv_settingTitle { font-size: 14px; }
+  .pv_settingDesc { margin-top: 4px; color: var(--dsw-alias-label-secondary); font-size: 12px; }
+  .pv_cubes { display: flex; gap: 8px; }
+  .pv_cube { width: 44px; height: 30px; border-radius: 8px; border: 0.5px solid var(--dsw-alias-border-l2); }
+  .pv_cube.light { background: #f5f5f5; }
+  .pv_cube.dark { background: #202024; outline: 1.5px solid var(--dsw-alias-state-business-primary); outline-offset: 1px; }
+  .pv_cube.system { background: linear-gradient(110deg, #f5f5f5 50%, #202024 50%); }
+</style>
+<link rel="stylesheet" href="src/theme.css" />
+</head>
+<body data-ds-dark-theme>
+  <div class="pv_frame">
+    <div class="pv_titlebar"><i></i><i></i><i></i></div>
+    <aside class="pv_sidebarCol">
+      <div class="pv_brand"><span class="pv_logo"></span><span class="pv_brandText">MIST INK</span></div>
+      <div class="pv_new"><span class="pv_newIcon">+</span> 新对话</div>
+      <nav class="pv_nav">
+        <div class="pv_navItem active"><span class="pv_glyph"></span> 对话</div>
+        <div class="pv_navItem"><span class="pv_glyph"></span> 插件</div>
+        <div class="pv_navItem"><span class="pv_glyph"></span> 技能</div>
+      </nav>
+      <div class="pv_sectionLabel">最近会话</div>
+      <div class="pv_sessions">
+        <div class="pv_session active">石墨灰主题的对比度<span class="pv_sessionMeta">刚刚 · 12 条消息</span></div>
+        <div class="pv_session">整理 Office 技能<span class="pv_sessionMeta">昨天 · 34 条消息</span></div>
+        <div class="pv_session">检查沙箱权限<span class="pv_sessionMeta">10 月 23 日 · 8 条消息</span></div>
+        <div class="pv_session">主题色板备选<span class="pv_sessionMeta">10 月 21 日 · 19 条消息</span></div>
+      </div>
+      <div class="pv_sidebarFoot"><span class="pv_glyph"></span> 设置</div>
+    </aside>
+
+    <main class="pv_centerCol">
+      <header class="pv_centerHeader">
+        <span class="pv_title">石墨灰主题的对比度</span>
+        <span class="pv_badge" id="mode">AFTER · Mist Ink</span>
+      </header>
+      <div class="pv_transcript">
+        <div class="pv_column">
+          <div class="pv_msgUser">把默认背景改成深灰，再加一点毛玻璃，散光看着别那么累。</div>
+          <div class="pv_msgAssistant">
+            <h2>主题已经生效，正文对比度约 11:1</h2>
+            <p>背景从近黑提到了石墨灰，正文不再使用纯白；侧边栏和输入区换成半透明磨砂，边缘留了一道很细的高光。</p>
+            <ul>
+              <li>主文字 #d2d4d9，次要文字 #a9aeb6，辅助说明 #90959e</li>
+              <li>侧栏、输入区、右侧栏、弹层使用同一套模糊强度</li>
+              <li>浅色模式保持原样，随时可以切回去对比</li>
+            </ul>
+            <pre class="pv_code"><code><span class="c">/* 主题只在深色模式生效 */</span>
+html[data-dsh-mist-ink] body[data-ds-dark-theme] {
+  <span class="k">--dsw-alias-bg-base</span>: <span class="s">#202024</span>;
+  <span class="k">--dsw-alias-label-primary</span>: <span class="s">#d2d4d9</span>;
+}
+<span class="c">/* 毛玻璃强度由设置里的滑杆实时写入 */</span>
+<span class="k">--dsh-mi-blur-sidebar</span>: <span class="s">13px</span>;</code></pre>
+            <div class="pv_tool"><span class="pv_dot"></span> 已读取 3 个文件 · theme.css · client.js · package.json</div>
+          </div>
+        </div>
+      </div>
+      <div class="pv_composerSeat" data-composer-seat>
+        <div class="pv_composerCard" data-composer-card>
+          <div class="pv_composerText">继续描述你想调整的地方…</div>
+          <div class="pv_composerRow">
+            <span class="pv_chip">DeepSeek Flash</span>
+            <span class="pv_send">↑</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="pv_rightbarCol">
+      <h3 class="pv_detailTitle">会话详情</h3>
+      <div class="pv_detailRow"><span>模型</span><span>deepseek-flash</span></div>
+      <div class="pv_detailRow"><span>上下文</span><span>18.4k / 128k</span></div>
+      <div class="pv_detailRow"><span>主题</span><span>雾墨 · 深色</span></div>
+      <div class="pv_detailRow"><span>毛玻璃</span><span>中 · 60%</span></div>
+      <div class="pv_swatchGrid">
+        <div class="pv_swatch" style="background:#202024">#202024</div>
+        <div class="pv_swatch" style="background:#26262b">#26262b</div>
+        <div class="pv_swatch" style="background:#2b2b31">#2b2b31</div>
+        <div class="pv_swatch" style="background:#333339">#333339</div>
+      </div>
+      <div class="pv_contrast">
+        <b>正文</b> 11.0:1 · <b>次要</b> 7.3:1<br />
+        <b>辅助</b> 5.4:1 · <b>原版正文</b> 17.5:1
+      </div>
+    </aside>
+  </div>
+
+  <div class="pv_dialog" role="dialog" aria-label="设置">
+    <div class="pv_dialogHeader"><b>设置</b><span class="pv_close">×</span></div>
+    <div class="pv_dialogBody">
+      <div class="pv_groupLabel">通用</div>
+      <div class="pv_settingRow">
+        <div><div class="pv_settingTitle">外观</div><div class="pv_settingDesc">跟随系统，或固定为浅色 / 深色</div></div>
+        <div class="pv_cubes"><span class="pv_cube light"></span><span class="pv_cube dark"></span><span class="pv_cube system"></span></div>
+      </div>
+      <div class="pv_settingRow">
+        <div><div class="pv_settingTitle">文字字号</div><div class="pv_settingDesc">对话正文与标题同步缩放</div></div>
+        <span style="color:var(--dsw-alias-label-secondary);font-size:13px">14 px</span>
+      </div>
+      <div class="mi-row">
+        <div class="mi-copy">
+          <div class="mi-title">毛玻璃强度</div>
+          <div class="mi-desc">调整侧边栏、输入区、右侧栏与弹层的模糊和通透度；0% 为完全不透明。</div>
+        </div>
+        <div class="mi-control">
+          <input type="range" min="0" max="100" step="5" value="60" aria-label="毛玻璃强度" />
+          <span class="mi-value">中 · 60%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search)
+    if (params.has('before')) {
+      document.documentElement.removeAttribute('data-dsh-mist-ink')
+      document.getElementById('mode').textContent = 'BEFORE · DSH stock dark'
+    }
+    if (params.has('settings')) document.body.classList.add('show-settings')
+  </script>
+</body>
+</html>

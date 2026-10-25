@@ -1,0 +1,63 @@
+{
+  "name": "dsh-mist-ink-theme",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Mist Ink — a softer graphite dark theme with frosted glass for the DeepSeek Harness Web GUI.",
+  "author": "EnderBull",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnderBull/dsh-mist-ink-theme.git"
+  },
+  "homepage": "https://github.com/EnderBull/dsh-mist-ink-theme#readme",
+  "bugs": {
+    "url": "https://github.com/EnderBull/dsh-mist-ink-theme/issues"
+  },
+  "engines": {
+    "dsh": ">=0.2.0"
+  },
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-settings-general"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "src",
+    "cordis.patch.yml",
+    "dsh.plugin.json",
+    "preview.html",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "dsh-theme",
+    "theme",
+    "dark-theme",
+    "glassmorphism",
+    "frosted-glass"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node test/client.test.mjs"
+  }
+}

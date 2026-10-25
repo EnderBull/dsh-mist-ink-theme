@@ -1,0 +1,20 @@
+{
+  "id": "dsh-mist-ink-theme",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "description": "雾墨 Mist Ink：把默认深色主题改成低对比度石墨灰，并给侧边栏、输入区、右侧栏与弹层加上毛玻璃。",
+  "client": {
+    "main": "./lib/client.js",
+    "inject": [
+      "@deepseek-ai/dsh-client-ui-slots",
+      "@deepseek-ai/dsh-client-ui-settings-general"
+    ]
+  },
+  "engines": {
+    "dsh": ">=0.2.0"
+  },
+  "contributes": {
+    "tools": [],
+    "skills": []
+  }
+}

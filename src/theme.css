@@ -1,0 +1,368 @@
+/* ==========================================================================
+   雾墨 · Mist Ink — a softer graphite dark theme with frosted glass.
+   Scoped to `html[data-dsh-mist-ink] body[data-ds-dark-theme]`; light mode is
+   never touched. Installed as a client plugin by dsh-mist-ink-theme.
+   ========================================================================== */
+
+/* Intensity defaults mirror an intensity of 60%. The client overrides every
+   `--dsh-mi-*` value live when the settings slider moves. */
+html[data-dsh-mist-ink] {
+  --dsh-mi-g: 0.6;
+  --dsh-mi-blur-sidebar: 13px;
+  --dsh-mi-blur-panel: 16px;
+  --dsh-mi-blur-card: 10px;
+  --dsh-mi-blur-menu: 17px;
+  --dsh-mi-a-sidebar: 0.748;
+  --dsh-mi-a-panel: 0.796;
+  --dsh-mi-a-card: 0.904;
+  --dsh-mi-a-menu: 0.868;
+}
+
+/* --------------------------------------------------------------------------
+   1. Palette
+   Base #202024, text #d2d4d9 (~11:1) instead of near-black #151517 with
+   near-white #f9fafb (~17.5:1).
+   -------------------------------------------------------------------------- */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] {
+  --dsw-alias-bg-base: #202024;
+  --dsw-alias-bg-document-preview: #1c1c21;
+  --dsw-alias-bg-layer-1: #26262b;
+  --dsw-alias-bg-layer-2: #2b2b31;
+  --dsw-alias-bg-layer-3: #333339;
+  --dsw-alias-bg-module-platform: #2b2b31;
+  --dsw-alias-bg-multi-select: #2b2b31;
+  --dsw-alias-bg-overlay: #2a2a30;
+  --dsw-alias-bg-mask-1: rgba(10, 10, 13, 0.72);
+  --dsw-alias-bg-mask-2: rgba(10, 10, 13, 0.5);
+
+  --dsw-alias-border-l1: rgba(255, 255, 255, 0.06);
+  --dsw-alias-border-l2: rgba(255, 255, 255, 0.09);
+  --dsw-alias-border-l3: rgba(255, 255, 255, 0.13);
+  --dsw-alias-border-l4: rgba(255, 255, 255, 0.18);
+
+  --dsw-alias-label-primary: #d2d4d9;
+  --dsw-alias-label-primary-dimmed: #c6c9cf;
+  --dsw-alias-label-primary-bluish: #dfe2e7;
+  --dsw-alias-label-primary-inverted: #26262b;
+  --dsw-alias-label-secondary: #a9aeb6;
+  --dsw-alias-label-tertiary: #90959e;
+  --dsw-alias-label-caption: #888d96;
+  --dsw-alias-label-dimmed: #6f747c;
+  --dsw-alias-menu-icon: #c6c9cf;
+
+  --dsw-alias-brand-primary: #dfe2e7;
+  --dsw-alias-brand-text: #e6e8ec;
+  --dsw-alias-brand-primary-invert: #26262b;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #9ab8e6;
+
+  --dsw-alias-link: #9ab8e6;
+  --dsw-alias-state-business-primary: #8fb0e0;
+  --dsw-alias-state-business-tertiary: rgba(143, 176, 224, 0.2);
+
+  --dsw-alias-button-primary-fill: #dfe2e7;
+  --dsw-alias-button-primary-hover: #eceef2;
+  --dsw-alias-button-elevated-fill: #2f2f36;
+  --dsw-alias-button-floating-fill: #2b2b31;
+  --dsw-alias-button-floating-hover: #33333a;
+  --dsw-alias-button-contrast-fill: #e6e8ec;
+
+  --dsw-alias-interactive-bg-hover: rgba(255, 255, 255, 0.055);
+  --dsw-alias-interactive-bg-active: rgba(255, 255, 255, 0.09);
+  --dsw-alias-interactive-bg-hover-solid: #2f2f36;
+
+  --dsw-alias-markdown-code-block: #1b1b20;
+  --dsw-alias-markdown-code-block-banner: #232328;
+  --dsw-alias-markdown-inline-code: #2c2c32;
+  --dsw-alias-markdown-code-segment-selected: #303037;
+  --dsw-alias-markdown-code-segment-unselected: #232328;
+
+  --dsw-alias-scrollbar-bg-l1: rgba(255, 255, 255, 0.14);
+  --dsw-alias-scrollbar-bg-l2: rgba(255, 255, 255, 0.18);
+  --dsw-alias-scrollbar-hover-l1: rgba(255, 255, 255, 0.22);
+  --dsw-alias-scrollbar-hover-l2: rgba(255, 255, 255, 0.28);
+
+  --dsw-alias-tooltip-bg: #33333a;
+  --dsw-alias-toast-bg: #33333a;
+  --dsw-alias-switch-thumb: #b9bdc4;
+
+  --dsw-alias-bg-document-selection: color-mix(in srgb, #4d7ab8 30%, transparent);
+
+  /* The Windows caption buttons read this token through the desktop preload
+     (`setTitleBarOverlay`), so it must be the same solid color as the web
+     caption strip below. */
+  --dsw-specific-sidebar-fill: #141418;
+  --dsw-specific-bubble: #2b2b31;
+  --dsw-specific-bubble-highlight: #34343b;
+  --dsw-specific-input-major: #26262b;
+  --dsw-specific-login-input: #26262b;
+  --dsw-specific-menu: rgba(34, 34, 40, 0.82);
+  --dsw-specific-selector: #2f2f36;
+  --dsw-specific-tip: #2a2a30;
+  --dsw-specific-sidebar-nav-item-active: #2f2f36;
+  --dsw-specific-sidebar-nav-item-active-accent: #35353d;
+  --dsw-specific-sidebar-nav-item-hover: rgba(255, 255, 255, 0.045);
+
+  --dsw-menu-surface-fill: rgba(34, 34, 40, 0.82);
+  --dsw-alias-menu-group-header-fill: rgba(34, 34, 40, 0.94);
+  --dsw-menu-backdrop-filter: blur(28px) saturate(130%);
+}
+
+/* The page canvas stays flat: the 8px gaps around the floating sidebar card
+   then read exactly like the conversation column. The card carries its own
+   soft wash and sheen instead of tinting the page behind it. */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] {
+  background-color: #202024;
+  background-image: none;
+}
+
+html[data-dsh-mist-ink] body[data-ds-dark-theme] ::selection {
+  color: #e6e8ec;
+  background: rgba(122, 154, 200, 0.34);
+}
+
+/* --------------------------------------------------------------------------
+   2. Frosted surfaces
+   -------------------------------------------------------------------------- */
+
+/* Left sidebar as a floating frosted card. The card lives on a pseudo-element
+   because backdrop-filter on the column itself becomes the containing block
+   for the window-chrome toggle (`position: fixed`), which traps the button
+   inside the sidebar's overflow and hides it. */
+html[data-dsh-mist-ink][data-windows-titlebar] body[data-ds-dark-theme] [class*='_frame'] {
+  background: transparent !important;
+}
+
+/* The stock Windows content corner cuts a notch out of the conversation
+   header where it meets the sidebar; the floating card provides its own edge. */
+html[data-dsh-mist-ink][data-windows-titlebar] body[data-ds-dark-theme] [class*='centerCol'] {
+  border-radius: 0 !important;
+  corner-shape: initial !important;
+}
+
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol'] {
+  position: relative;
+  isolation: isolate;
+  padding: 8px;
+  background: transparent !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol']::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  z-index: -1;
+  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.06), transparent 58%),
+    linear-gradient(
+      180deg,
+      rgba(38, 38, 45, var(--dsh-mi-a-sidebar)),
+      rgba(27, 27, 32, var(--dsh-mi-a-sidebar))
+    );
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(var(--dsh-mi-blur-sidebar)) saturate(112%);
+  pointer-events: none;
+}
+
+/* The sidebar root carries its own opaque fill and an inline pixel width. Keep
+   the fill off in every pointer state (its class list gains/loses "quietBars")
+   and pin the width to the padded column so its content cannot spill past the
+   card's right edge. */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol'] [class*='_root'] {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* The session tree fades into the sidebar fill at its bottom edge. The stock
+   token now carries the darker caption color, so repaint the fade in the
+   card's own tone instead of letting it read as a black band. */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol'] [class*='_fade'] {
+  background: linear-gradient(to bottom, transparent, rgba(29, 29, 34, 0.96)) !important;
+}
+
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol'] > [class*='_root'],
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol'] > [data-slot] > [class*='_root'],
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol'] > * > [class*='_root'] {
+  width: 100% !important;
+}
+
+/* Collapsed rail: full-bleed glass, no floating card inset. */
+html[data-dsh-mist-ink][data-sidebar-collapsed] body[data-ds-dark-theme] [class*='sidebarCol'],
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-sidebar-collapsed] [class*='sidebarCol'] {
+  padding: 0;
+}
+
+html[data-dsh-mist-ink][data-sidebar-collapsed] body[data-ds-dark-theme] [class*='sidebarCol']::before,
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-sidebar-collapsed] [class*='sidebarCol']::before {
+  inset: 0;
+  border-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* The Windows caption strip uses the same solid fill as the native caption
+   buttons (the token drives `setTitleBarOverlay`), so both halves of the chrome
+   read as one surface. */
+html[data-dsh-mist-ink][data-windows-titlebar] body[data-ds-dark-theme] [class*='_frame']::before {
+  background: var(--dsw-specific-sidebar-fill) !important;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(var(--dsh-mi-blur-menu)) saturate(108%);
+}
+
+/* Right-hand details column. */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='rightbarCol'] {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(40, 40, 47, var(--dsh-mi-a-panel)),
+      rgba(31, 31, 37, var(--dsh-mi-a-panel))
+    ) !important;
+  border-left: 0.5px solid rgba(255, 255, 255, 0.07) !important;
+  backdrop-filter: blur(var(--dsh-mi-blur-panel)) saturate(114%);
+}
+
+/* Composer card. The blur lives on a pseudo-element, not on the card: a
+   filtered card becomes the backdrop root for its own animated children (the
+   send button transition, the pending dot), and Chromium repaints the whole
+   surface every frame there. The card keeps an inset ring instead of a border
+   so hover never changes layout geometry. */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-composer-card] {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.075),
+    0 0 28px rgba(152, 174, 206, 0.05),
+    0 0 70px rgba(128, 148, 178, 0.03),
+    0 16px 40px rgba(0, 0, 0, 0.22),
+    inset 0 1px rgba(255, 255, 255, 0.06) !important;
+}
+
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-composer-card]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 255, 255, 0.04), transparent 56%),
+    linear-gradient(
+      155deg,
+      rgba(45, 45, 53, var(--dsh-mi-a-card)),
+      rgba(34, 34, 41, var(--dsh-mi-a-card))
+    );
+  backdrop-filter: blur(var(--dsh-mi-blur-card)) saturate(115%);
+  pointer-events: none;
+}
+
+/* Dialogs and the settings panel. */
+html[data-dsh-mist-ink] body[data-ds-dark-theme] [role='dialog'] {
+  background:
+    linear-gradient(
+      160deg,
+      rgba(39, 39, 46, var(--dsh-mi-a-panel)),
+      rgba(31, 31, 37, var(--dsh-mi-a-panel))
+    ) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.42),
+    inset 0 1px rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(var(--dsh-mi-blur-panel)) saturate(116%);
+}
+
+/* --------------------------------------------------------------------------
+   3. Settings row for the glass intensity slider
+   -------------------------------------------------------------------------- */
+html[data-dsh-mist-ink] .mi-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 0.5px solid var(--dsw-alias-border-l2);
+}
+
+html[data-dsh-mist-ink] .mi-copy {
+  min-width: 0;
+}
+
+html[data-dsh-mist-ink] .mi-title {
+  color: var(--dsw-alias-label-primary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+html[data-dsh-mist-ink] .mi-desc {
+  color: var(--dsw-alias-label-secondary);
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+html[data-dsh-mist-ink] .mi-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+html[data-dsh-mist-ink] .mi-control input[type='range'] {
+  width: 168px;
+  height: 20px;
+  accent-color: var(--dsw-alias-brand-primary);
+  cursor: pointer;
+}
+
+html[data-dsh-mist-ink] .mi-value {
+  min-width: 64px;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  html[data-dsh-mist-ink] .mi-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  html[data-dsh-mist-ink] .mi-control {
+    justify-content: space-between;
+  }
+
+  html[data-dsh-mist-ink] .mi-control input[type='range'] {
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Fallbacks
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-transparency: reduce) {
+  html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol']::before {
+    background: #1d1d22 !important;
+    backdrop-filter: none;
+  }
+
+  html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='rightbarCol'] {
+    background: #26262b !important;
+    backdrop-filter: none;
+  }
+
+  html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-composer-card]::before,
+  html[data-dsh-mist-ink] body[data-ds-dark-theme] [role='dialog'] {
+    background: #26262b !important;
+    backdrop-filter: none;
+  }
+
+  html[data-dsh-mist-ink][data-windows-titlebar] body[data-ds-dark-theme] [class*='_frame']::before {
+    background: var(--dsw-specific-sidebar-fill) !important;
+    backdrop-filter: none;
+  }
+}
