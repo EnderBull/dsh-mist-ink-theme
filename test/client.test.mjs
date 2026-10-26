@@ -30,16 +30,28 @@ const styleElement = {
 }
 
 const appended = []
+globalThis.MutationObserver = class {
+  observe() {}
+  disconnect() {}
+}
 globalThis.document = {
   documentElement: root,
   head: {
     appendChild(element) {
-      appended.push(element)
+      if (!appended.includes(element)) appended.push(element)
+    },
+    querySelectorAll() {
+      return appended.slice()
     },
   },
   createElement() {
     return styleElement
   },
+  querySelector() {
+    return null
+  },
+  addEventListener() {},
+  removeEventListener() {},
 }
 
 let registration
@@ -55,6 +67,12 @@ globalThis.window = {
     },
     setItem() {},
   },
+  addEventListener() {},
+  removeEventListener() {},
+  setInterval() {
+    return 0
+  },
+  clearInterval() {},
 }
 
 await import(new URL('../lib/client.js', import.meta.url).href)
