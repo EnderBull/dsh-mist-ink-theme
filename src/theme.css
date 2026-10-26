@@ -1,5 +1,5 @@
-/* ==========================================================================
-   雾墨 · Mist Ink — a softer graphite dark theme with frosted glass.
+﻿/* ==========================================================================
+   闆惧ⅷ 路 Mist Ink 鈥?a softer graphite dark theme with frosted glass.
    Scoped to `html[data-dsh-mist-ink] body[data-ds-dark-theme]`; light mode is
    never touched. Installed as a client plugin by dsh-mist-ink-theme.
    ========================================================================== */
@@ -163,7 +163,7 @@ html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='sidebarCol']::before {
       rgba(27, 27, 32, var(--dsh-mi-a-sidebar))
     );
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(var(--dsh-mi-blur-sidebar)) saturate(112%);
+  backdrop-filter: blur(var(--dsh-mi-blur-sidebar)) saturate(112%) !important;
   pointer-events: none;
 }
 
@@ -209,7 +209,7 @@ html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-sidebar-collapsed] [class
 html[data-dsh-mist-ink][data-windows-titlebar] body[data-ds-dark-theme] [class*='_frame']::before {
   background: var(--dsw-specific-sidebar-fill) !important;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(var(--dsh-mi-blur-menu)) saturate(108%);
+  backdrop-filter: blur(var(--dsh-mi-blur-menu)) saturate(108%) !important;
 }
 
 /* Right-hand details column. */
@@ -221,7 +221,7 @@ html[data-dsh-mist-ink] body[data-ds-dark-theme] [class*='rightbarCol'] {
       rgba(31, 31, 37, var(--dsh-mi-a-panel))
     ) !important;
   border-left: 0.5px solid rgba(255, 255, 255, 0.07) !important;
-  backdrop-filter: blur(var(--dsh-mi-blur-panel)) saturate(114%);
+  backdrop-filter: blur(var(--dsh-mi-blur-panel)) saturate(114%) !important;
 }
 
 /* Composer card. The blur lives on a pseudo-element, not on the card: a
@@ -255,7 +255,7 @@ html[data-dsh-mist-ink] body[data-ds-dark-theme] [data-composer-card]::before {
       rgba(45, 45, 53, var(--dsh-mi-a-card)),
       rgba(34, 34, 41, var(--dsh-mi-a-card))
     );
-  backdrop-filter: blur(var(--dsh-mi-blur-card)) saturate(115%);
+  backdrop-filter: blur(var(--dsh-mi-blur-card)) saturate(115%) !important;
   pointer-events: none;
 }
 
@@ -271,7 +271,7 @@ html[data-dsh-mist-ink] body[data-ds-dark-theme] [role='dialog'] {
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.42),
     inset 0 1px rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(var(--dsh-mi-blur-panel)) saturate(116%);
+  backdrop-filter: blur(var(--dsh-mi-blur-panel)) saturate(116%) !important;
 }
 
 /* --------------------------------------------------------------------------
